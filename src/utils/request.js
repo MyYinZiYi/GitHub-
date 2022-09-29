@@ -2,7 +2,7 @@ import axios from "axios";
 
 //创建axios实例
 const service = axios.create({
-    baseURL: "http://119.45.133.128:8089/",
+    baseURL: process.env.VUE_APP_SERVICE_URL,
     timeout: 5000
 })
 
