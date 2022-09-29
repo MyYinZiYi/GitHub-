@@ -14,14 +14,24 @@ module.exports = defineConfig({
     https: false,
     // 配置跨域
     proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: process.env.VUE_APP_SERVICE_URL,
+      "/dev-api": {
+        target: "http://119.45.133.128:8089/",
         changeOrigin: true,
         pathRewrite: {
-          ["^" + process.env.VUE_APP_BASE_API]: ""
+          "^/dev-api": ""
         }
       }
     }
+
+    // proxy: {
+    //   [process.env.VUE_APP_BASE_API]: {
+    //     target: process.env.VUE_APP_SERVICE_URL,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       ["^" + process.env.VUE_APP_BASE_API]: ""
+    //     }
+    //   }
+    // }
 
   }
 })
