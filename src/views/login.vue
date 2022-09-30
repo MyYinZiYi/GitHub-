@@ -1,15 +1,21 @@
 <template>
-  <div class="box">
-    <div class="box-cender">
-      <h3>权限管理</h3>
-      <el-form ref="form" :model="loginForm" label-width="80px">
-        <el-form-item label="用户名">
-          <el-input v-model.trim="loginForm.username"></el-input>
+  <div class="login-wrapper">
+    <div class="login-form">
+      <h3 class="login-title">权限管理</h3>
+      <el-form ref="form" :model="loginForm">
+        <el-form-item prop="username">
+          <el-input
+            v-model.trim="loginForm.username"
+            placeholder="请输入账号"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model.trim="loginForm.password"></el-input>
+        <el-form-item prop="password">
+          <el-input
+            v-model.trim="loginForm.password"
+            placeholder="请输入密码"
+          ></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="code">
           <div class="tp">
             <el-input
               class="inp"
@@ -19,16 +25,16 @@
             <span class="w"><img :src="img" alt="" @click="imgReset" /></span>
           </div>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="el-form-item__content">
           <el-button type="primary" @click="headerLoginSubmit">登录</el-button>
-          <el-button>重置</el-button>
+          <el-button @click="headerLoginReset">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
 <script>
-import { login, loginImg } from "../api/login";
+import { loginImg } from "../api/login";
 export default {
   name: "login",
   data() {
@@ -45,12 +51,13 @@ export default {
     async handelLoginImg() {
       try {
         const res = await loginImg();
-        console.log(res);
-
         this.img = window.URL.createObjectURL(res.data);
       } catch (error) {
         console.log(error);
       }
+    },
+    headerLoginReset() {
+     this.$refs["form"].resetFields()
     },
     imgReset() {
       this.handelLoginImg();
@@ -68,25 +75,33 @@ export default {
 };
 </script>
 <style scoped>
-.box {
-  width: 100%;
+.login-wrapper {
   height: 100%;
-  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
-.box-cender {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  margin: auto;
-  width: 400px;
-  height: 400px;
-  padding-right: 30px;
+.login-form {
+  width: 350px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 160px auto;
+  border-radius: 20px;
+  padding: 20px;
   border: 1px solid #ccc;
+  box-shadow: 10px 10px 10px 10px rgba(99, 98, 104, 0.8);
 }
-.element.style {
-  margin-left: 0 !important;
+.login-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding-top: 20px;
+}
+.el-form {
+  margin-top: 20px;
+}
+.tp {
+  display: flex;
+}
+.el-form-item__content {
+  text-align: center;
 }
 </style>
